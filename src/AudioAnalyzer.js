@@ -10,7 +10,7 @@ export default class _AudioAnalyzer {
     init() {
         var player = document.createElement('audio');
         player.classList.add('player-audio');
-        player.src = './public/assets/techno.mp3';
+        player.src = './assets/techno.mp3';
         player.play();
         document.body.appendChild(player);
     }
