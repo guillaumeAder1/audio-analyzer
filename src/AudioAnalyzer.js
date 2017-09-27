@@ -1,8 +1,10 @@
+// import track from '../public/assets/techno.mp3'
+
 export default class _AudioAnalyzer {
 
     constructor(params) {
 
-        console.log("constructor analyser init...", params)
+        console.log("constructor analyser init...", params);
 
     }
     init() {
