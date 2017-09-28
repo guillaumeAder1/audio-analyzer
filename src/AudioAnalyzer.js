@@ -11,22 +11,23 @@ export default class _AudioAnalyzer {
         console.log("constructor analyser init...", params);
         this.isPlaying = false;
         //
-        this.createAnalyzer(this.createAudioElement(params.inputSrc));
-        this.initPlayEvent();
+        let audio = this.createAudioElement(params.inputSrc);
+        let analyser = this.createAnalyzer(audio);
+        this.initPlayEvent(analyser.analyser, analyser.frequencies);
     }
 
     /**
      * event on 'SPACE' bar key to play/stop music
      */
-    initPlayEvent() {
+    initPlayEvent(analyser, frequencies) {
         document.addEventListener('keyup', (e) => {
             if (!e.keyCode === 32) return;
             if (!this.isPlaying) {
                 this.player.play();
-                this.draw(true);
+                this.draw(true, frequencies, analyser);
             } else {
                 this.player.pause();
-                this.draw(false)
+                this.draw(false, frequencies, analyser)
             }
             this.isPlaying = !this.isPlaying;
         })
@@ -36,39 +37,41 @@ export default class _AudioAnalyzer {
      * @param {*String} source - path/to/source/file
      */
     createAudioElement(source) {
-        this.player = document.createElement('audio');
-        this.player.classList.add('player-audio');
-        this.player.src = source || './assets/techno.mp3';
-        this.player.loop = true;
-        document.body.appendChild(this.player);
+        let player = document.createElement('audio');
+        player.classList.add('player-audio');
+        player.src = source || './assets/techno.mp3';
+        player.loop = true;
+        document.body.appendChild(player);
+        this.player = player
         return this.player;
     }
 
     /**
      * 
-     * @param {html5 Audio} player - audio element playing the song
+     * @param {HTML5 Audio} player - audio element playing the song
      */
     createAnalyzer(player) {
         console.log("Analyzer....");
         let context = new AudioContext();
         let source = context.createMediaElementSource(player);
-        this.analyser = context.createAnalyser();
-        this.analyser.fftSize = 64;
-        source.connect(this.analyser);
-        this.analyser.connect(context.destination);
-        this.frequencies = new Uint8Array(this.analyser.frequencyBinCount);
+        let analyser = context.createAnalyser();
+        analyser.fftSize = 64;
+        source.connect(analyser);
+        analyser.connect(context.destination);
+        let frequencies = new Uint8Array(analyser.frequencyBinCount);
+        return { analyser: analyser, frequencies: frequencies }
     }
 
     /**
      * @param {Boolean} activate - stop or play animation and get frequencies data
      */
-    draw(activate) {
-        console.log('drawing...', this.frequencies)
+    draw(activate, frequencies, analyser) {
+        console.log('drawing...', frequencies)
         if (!activate) {
             window.cancelAnimationFrame(this.animFrame);
             return;
         }
-        this.analyser.getByteFrequencyData(this.frequencies);
-        this.animFrame = window.requestAnimationFrame(this.draw.bind(this))
+        analyser.getByteFrequencyData(frequencies);
+        this.animFrame = window.requestAnimationFrame(this.draw.bind(this, true, frequencies, analyser))
     }
 }
