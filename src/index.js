@@ -1,7 +1,9 @@
-import _ from 'lodash'
 import _AudioAnalyzer from './AudioAnalyzer.js'
-import _Anim1 from './Anim1.js'
-import _Anim2 from './Anim2.js'
+import _Stage from './Stage.js'
+import _Anim1 from './anim/Anim1.js'
+import _Anim2 from './anim/Anim2.js'
+
+import './style/main.css'
 
 
 let anim = new _Anim1();
@@ -12,6 +14,9 @@ let analyzer = new _AudioAnalyzer({
     inputSrc: false,
     bassEvent: anim.eventReceived
 });
+
+
+const Stage = new _Stage();
 
 document.addEventListener('keyup', (e) => {
     if (e.keyCode === 13) {
