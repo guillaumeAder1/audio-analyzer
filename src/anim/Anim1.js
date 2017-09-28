@@ -1,18 +1,22 @@
-import * as d3 from 'd3'
+// import * as d3 from 'd3'
 
 
 export default class _Anim1 {
 
-    constructor() {
-
-        console.log(this)
-        this.createSvg()
+    constructor(params) {
+        this.svg = params.stage;
     }
-    createSvg() {
-        const svg = d3.select('body');
+    createShape() {
+        let circle = this.svg.append('circle')
+            .attr('cx', 150)
+            .attr('cy', 150)
+            .attr('r', 50).transition()
+            .attr('r', 0)
+            .remove();
     }
     eventReceived() {
         console.log('Received Anim 1...')
+        this.createShape()
     }
 
 }

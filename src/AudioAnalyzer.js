@@ -89,7 +89,6 @@ export default class _AudioAnalyzer {
         let global = basses.reduce((acc, val) => {
             return acc + val;
         }) / basses.length;
-        //console.log(global, this.getAverageBass(global));
 
         if (global > this.getAverageBass(global)) {
             if (!this.bassDown) return;
@@ -97,7 +96,7 @@ export default class _AudioAnalyzer {
             return this.emitBass();
         } else {
             this.bassDown = true;
-            console.log("___minus___")
+            // console.log("___minus___")
         }
 
     }
