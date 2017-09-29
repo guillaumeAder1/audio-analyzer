@@ -31,6 +31,7 @@ export default class _AudioAnalyzer {
                 return false;
             }
             if (!this.isPlaying) {
+                player.currentTime = 100
                 player.play();
                 this.draw(true, frequencies, analyser);
             } else {
@@ -48,6 +49,7 @@ export default class _AudioAnalyzer {
         let player = document.createElement('audio');
         player.classList.add('player-audio');
         player.src = source || './assets/classAwayofsun.mp3';
+        //player.src = source || './assets/techno.mp3';
         player.loop = true;
         document.body.appendChild(player);
         this.player = player
@@ -103,7 +105,7 @@ export default class _AudioAnalyzer {
 
     getAverageBass(value) {
         this.bassMeasure.push(value);
-        if (this.bassMeasure.length > 100) {
+        if (this.bassMeasure.length > 200) {
             this.bassMeasure.shift();
         }
         return this.bassMeasure.reduce((acc, val) => {

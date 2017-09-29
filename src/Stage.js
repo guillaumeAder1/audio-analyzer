@@ -18,22 +18,36 @@ export default class _Stage {
             new _Anim1({ stage: svg, size: { w: w, h: h } }),
             new _Anim2({ stage: svg, size: { w: w, h: h } })
         ];
+        this.previousIndex = 0;
+        this.initAnimation()
 
         this.initEvent()
     }
 
+    initAnimation() {
+        this.animList[this.indexAnim].startAnimation()
+    }
 
 
     initEvent() {
-        window.document.addEventListener('keyup', this.changeIndexAnim.bind(this));
+        window.document.addEventListener('keyup', this.changeAnim.bind(this));
     }
 
-    changeIndexAnim(e) {
+    /**
+     * change anim
+     * @param {*event} e key event
+     */
+    changeAnim(e) {
         if (e.keyCode === 13) {
+            // remove previous
+            this.removeAnim(this.indexAnim);
+            // increment index
             this.indexAnim++;
             if (this.indexAnim >= this.animList.length) {
                 this.indexAnim = 0;
             }
+            // start new anim
+            this.animList[this.indexAnim].startAnimation();
         }
     }
 
@@ -46,7 +60,11 @@ export default class _Stage {
         return stage
     }
 
+    removeAnim(index) {
+        this.animList[index].removeAnimation();
+    }
+
     eventReceived() {
-        this.animList[this.indexAnim].eventReceived()
+        this.animList[this.indexAnim].eventReceived();
     }
 }
