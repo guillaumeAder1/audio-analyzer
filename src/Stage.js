@@ -10,20 +10,19 @@ export default class _Stage {
         let h = window.innerHeight;
         // let h = window.document.body.offsetHeight
         // let w = window.document.body.offsetWidth
-        console.log(w, h)
-
-        this.toto = "okok"
-
+        console.log(w, h);
         this.indexAnim = 0;
 
         let svg = this.initSvg(w, h)
         this.animList = [
-            new _Anim1({ stage: svg }),
-            new _Anim2({ stage: svg })
+            new _Anim1({ stage: svg, size: { w: w, h: h } }),
+            new _Anim2({ stage: svg, size: { w: w, h: h } })
         ];
 
         this.initEvent()
     }
+
+
 
     initEvent() {
         window.document.addEventListener('keyup', this.changeIndexAnim.bind(this));
