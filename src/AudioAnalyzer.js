@@ -47,7 +47,7 @@ export default class _AudioAnalyzer {
     createAudioElement(source) {
         let player = document.createElement('audio');
         player.classList.add('player-audio');
-        player.src = source || './assets/techno.mp3';
+        player.src = source || './assets/classAwayofsun.mp3';
         player.loop = true;
         document.body.appendChild(player);
         this.player = player
