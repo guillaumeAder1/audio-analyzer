@@ -6,10 +6,10 @@ export default class _Anim2 {
         this.svg = params.stage;
         this.size = params.size;
         this.counter = 0;
+        this.isPlaying = false;
     }
     startAnimation() {
         this.node = this.svg.append('g').attr('class', 'anim1');
-
         this.data = this.getData(6, this.size);
         this.initShape(this.data)
 
@@ -23,25 +23,30 @@ export default class _Anim2 {
 
     }
     createShape(data) {
-        let shapes = this.node.selectAll('circle')
-            .transition()
-            .attr('r', (d, i) => {
-                if (this.counter % 2 === 0) {
-                    if (!d.isOdd) {
-                        return d.r * 1.3
-                    } else {
-                        return d.r
+        if (!this.isPlaying) {
+            this.isPlaying = true;
+            let shapes = this.node.selectAll('circle')
+                .transition()
+                .attr('r', (d, i) => {
+                    if (this.counter % 2 === 0) {
+                        if (!d.isOdd) {
+                            return d.r * 1.3
+                        } else {
+                            return d.r
+                        }
                     }
-                }
-                if (this.counter % 2 !== 0) {
-                    if (d.isOdd) {
-                        return d.r * 1.3
-                    } else {
-                        return d.r
+                    if (this.counter % 2 !== 0) {
+                        if (d.isOdd) {
+                            return d.r * 1.3
+                        } else {
+                            return d.r
+                        }
                     }
-                }
 
-            });
+                });
+            this.isPlaying = false;
+
+        }
 
     }
     eventReceived() {

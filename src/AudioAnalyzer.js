@@ -1,3 +1,8 @@
+// OTHER resou
+// https://github.com/trippedout/beatdetect 
+//https: //www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/
+var t = require('./lib/beatdetector.js')
+
 /**
  * params
  * 
@@ -8,10 +13,27 @@ export default class _AudioAnalyzer {
 
 
     constructor(params) {
+        this.song = new stasilo.BeatDetector({
+            sens: 5.0,
+            visualizerFFTSize: 256,
+            analyserFFTSize: 256,
+            passFreq: 600,
+            url: "./assets/classAwayofsun.mp3"
+        });
+
+
+        this.test()
+        this.emitBass = params.bassEvent;
+
+        document.addEventListener('keyup', (e) => {
+            console.log(Date.now())
+        })
+
+        return
+        console.log(t)
         console.log("constructor analyser init...", params);
         this.isPlaying = false;
 
-        this.emitBass = params.bassEvent;
         this.bassDown = false;
 
         //
@@ -20,6 +42,16 @@ export default class _AudioAnalyzer {
         this.initPlayEvent(audio, analyser.analyser, analyser.frequencies);
 
         this.bassMeasure = [];
+    }
+
+    test() {
+
+        if (this.song.isOnBeat()) {
+            console.log("okokok")
+            this.emitBass();
+        }
+        window.requestAnimationFrame(this.test.bind(this));
+
     }
 
     /**
@@ -82,7 +114,8 @@ export default class _AudioAnalyzer {
         analyser.getByteFrequencyData(frequencies);
         this.animFrame = window.requestAnimationFrame(this.draw.bind(this, true, frequencies, analyser));
         // bass are index 0,1,2 of frequencies array
-        this.getBassFreq(frequencies.slice(0, 3));
+        // this.getBassFreq(frequencies.slice(0, 3));
+        this.getBassFreq(frequencies);
 
     }
 
