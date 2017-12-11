@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import _Anim1 from './anim/Anim1.js'
 import _Anim2 from './anim/Anim2.js'
+import _Anim3 from './anim/Anim3.js'
 
 export default class _Stage {
 
@@ -16,9 +17,9 @@ export default class _Stage {
         let svg = this.initSvg(w, h)
         this.animList = [
             new _Anim1({ stage: svg, size: { w: w, h: h } }),
-            new _Anim2({ stage: svg, size: { w: w, h: h } })
+            new _Anim2({ stage: svg, size: { w: w, h: h } }),
+            new _Anim3({ stage: svg, size: { w: w, h: h } })
         ];
-        this.previousIndex = 0;
         this.initAnimation()
 
         this.initEvent()

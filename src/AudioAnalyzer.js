@@ -13,23 +13,23 @@ export default class _AudioAnalyzer {
 
 
     constructor(params) {
-        this.song = new stasilo.BeatDetector({
-            sens: 5.0,
-            visualizerFFTSize: 256,
-            analyserFFTSize: 256,
-            passFreq: 600,
-            url: "./assets/classAwayofsun.mp3"
-        });
+        // this.song = new stasilo.BeatDetector({
+        //     sens: 5.0,
+        //     visualizerFFTSize: 256,
+        //     analyserFFTSize: 256,
+        //     passFreq: 600,
+        //     url: "./assets/classAwayofsun.mp3"
+        // });
 
 
-        this.test()
+        // this.test()
         this.emitBass = params.bassEvent;
 
-        document.addEventListener('keyup', (e) => {
-            console.log(Date.now())
-        })
+        // document.addEventListener('keyup', (e) => {
+        //     console.log(Date.now())
+        // })
 
-        return
+        //return
         console.log(t)
         console.log("constructor analyser init...", params);
         this.isPlaying = false;
@@ -115,6 +115,7 @@ export default class _AudioAnalyzer {
         this.animFrame = window.requestAnimationFrame(this.draw.bind(this, true, frequencies, analyser));
         // bass are index 0,1,2 of frequencies array
         // this.getBassFreq(frequencies.slice(0, 3));
+
         this.getBassFreq(frequencies);
 
     }

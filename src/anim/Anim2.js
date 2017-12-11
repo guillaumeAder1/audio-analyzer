@@ -1,8 +1,10 @@
 import { randomBool, getRandomArbitrary } from './../helper/Random.js'
+import AnimationModel from '../model/animationModel.js'
 
-export default class _Anim2 {
+export default class _Anim2 extends AnimationModel {
 
     constructor(params) {
+        super(params, params)
         this.svg = params.stage;
         this.size = params.size;
         this.counter = 0;
