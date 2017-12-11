@@ -1,3 +1,5 @@
+import { randomBool, getRandomArbitrary } from './../helper/Random.js'
+
 export default class AnimationModel {
     constructor(params) {
         this.svg = params.stage
@@ -37,4 +39,9 @@ export default class AnimationModel {
         this.node.transition()
             .style('opacity', 0).remove()
     }
+
+    getRandomArbitrary() {
+
+    }
+
 }

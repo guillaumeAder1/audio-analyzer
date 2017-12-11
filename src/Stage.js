@@ -31,7 +31,8 @@ export default class _Stage {
 
 
     initEvent() {
-        window.document.addEventListener('keyup', this.changeAnim.bind(this));
+        // window.document.addEventListener('keyup', this.changeAnim.bind(this));
+        window.document.addEventListener('keyup', (e) => { this.changeAnim(e) });
     }
 
     /**

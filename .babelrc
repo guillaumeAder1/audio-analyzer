@@ -1,9 +1,4 @@
 {
-    "presets": [
-        ["env", {
-            "targets": {
-                "browsers": ["last 2 versions", "safari >= 7"]
-            }
-        }]
-    ]
+    presets: ["es2015-without-strict", "stage-0"],
+    plugins: ["transform-es2015-arrow-functions"]
 }
