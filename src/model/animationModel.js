@@ -41,7 +41,7 @@ export default class AnimationModel {
     }
 
     getRandomArbitrary() {
-
+        return getRandomArbitrary()
     }
 
 }

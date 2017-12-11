@@ -25,6 +25,8 @@ export default class _AudioAnalyzer {
         // this.test()
         this.emitBass = params.bassEvent;
 
+        this.emitFrequencies = params.allFreqEvent;
+
         // document.addEventListener('keyup', (e) => {
         //     console.log(Date.now())
         // })
@@ -80,8 +82,8 @@ export default class _AudioAnalyzer {
     createAudioElement(source) {
         let player = document.createElement('audio');
         player.classList.add('player-audio');
-        player.src = source || './assets/classAwayofsun.mp3';
-        //player.src = source || './assets/techno.mp3';
+        //player.src = source || './assets/classAwayofsun.mp3';
+        player.src = source || './assets/techno.mp3';
         player.loop = true;
         document.body.appendChild(player);
         this.player = player
@@ -114,9 +116,12 @@ export default class _AudioAnalyzer {
         analyser.getByteFrequencyData(frequencies);
         this.animFrame = window.requestAnimationFrame(this.draw.bind(this, true, frequencies, analyser));
         // bass are index 0,1,2 of frequencies array
-        // this.getBassFreq(frequencies.slice(0, 3));
+        this.getBassFreq(frequencies.slice(2, 5));
 
-        this.getBassFreq(frequencies);
+        //this.getBassFreq(frequencies);
+
+        this.emitFrequencies(frequencies);
+
 
     }
 

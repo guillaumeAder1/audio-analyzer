@@ -9,12 +9,12 @@ export default class _Stage {
 
         let w = window.innerWidth;
         let h = window.innerHeight;
-        // let h = window.document.body.offsetHeight
-        // let w = window.document.body.offsetWidth
-        console.log(w, h);
         this.indexAnim = 0;
 
-        let svg = this.initSvg(w, h)
+        let svg = this.initSvg(w, h);
+        // create spctre vbisualization // default array length 32
+        this.spectumSvg = this.initSpectrum(svg, 32)
+
         this.animList = [
             new _Anim1({ stage: svg, size: { w: w, h: h } }),
             new _Anim2({ stage: svg, size: { w: w, h: h } }),
@@ -23,6 +23,24 @@ export default class _Stage {
         this.initAnimation()
 
         this.initEvent()
+    }
+    initSpectrum(svg, nbr) {
+        let data = new Array(nbr).fill({});
+        let space = 20;
+        let width = 15;
+        let _d = data.map((val, index) => {
+            return {
+                x: index * (space + width),
+                y: 200,
+                w: width,
+                h: 200
+            }
+        })
+        return svg.append('g').selectAll('rect').data(_d).enter().append('rect')
+            .attr('x', (d, i) => d.x)
+            .attr('y', (d, i) => d.y)
+            .attr('height', (d, i) => d.h)
+            .attr('width', (d, i) => d.w);
     }
 
     initAnimation() {
@@ -54,7 +72,6 @@ export default class _Stage {
     }
 
     initSvg(width, height) {
-
         let stage = d3.select('body').append('svg')
             .attr('id', 'stage')
             .attr('width', width)
@@ -64,6 +81,20 @@ export default class _Stage {
 
     removeAnim(index) {
         this.animList[index].removeAnimation();
+    }
+
+    frequencies(data) {
+        console.log(data, this.spectumSvg)
+        let d = data.map((e) => {
+            //console.log(e)
+            return { h: e }
+        })
+
+        // this.spectumSvg.selectAll('rect').data(d).enter().attr('height', (d, i) => d)
+        this.spectumSvg.transition().duration(10)
+            .attr('height', (d, i) => data[i])
+
+
     }
 
     eventReceived() {

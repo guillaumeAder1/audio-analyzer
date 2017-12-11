@@ -7,7 +7,8 @@ const stage = new _Stage();
 
 let analyzer = new _AudioAnalyzer({
     inputSrc: false,
-    bassEvent: stage.eventReceived.bind(stage)
+    bassEvent: stage.eventReceived.bind(stage),
+    allFreqEvent: stage.frequencies.bind(stage)
 });
 
 
