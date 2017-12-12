@@ -82,8 +82,8 @@ export default class _AudioAnalyzer {
     createAudioElement(source) {
         let player = document.createElement('audio');
         player.classList.add('player-audio');
-        //player.src = source || './assets/classAwayofsun.mp3';
-        player.src = source || './assets/techno.mp3';
+        player.src = source || './assets/classAwayofsun.mp3';
+        //player.src = source || './assets/techno.mp3';
         player.loop = true;
         document.body.appendChild(player);
         this.player = player
@@ -116,9 +116,9 @@ export default class _AudioAnalyzer {
         analyser.getByteFrequencyData(frequencies);
         this.animFrame = window.requestAnimationFrame(this.draw.bind(this, true, frequencies, analyser));
         // bass are index 0,1,2 of frequencies array
-        this.getBassFreq(frequencies.slice(2, 5));
+        //this.getBassFreq(frequencies.slice(2, 5));
 
-        //this.getBassFreq(frequencies);
+        this.getBassFreq(frequencies);
 
         this.emitFrequencies(frequencies);
 
@@ -134,7 +134,7 @@ export default class _AudioAnalyzer {
         if (global > this.getAverageBass(global)) {
             if (!this.bassDown) return;
             this.bassDown = false;
-            return this.emitBass();
+            return this.emitBass(basses);
         } else {
             this.bassDown = true;
             // console.log("___minus___")
@@ -144,7 +144,7 @@ export default class _AudioAnalyzer {
 
     getAverageBass(value) {
         this.bassMeasure.push(value);
-        if (this.bassMeasure.length > 200) {
+        if (this.bassMeasure.length > 60) {
             this.bassMeasure.shift();
         }
         return this.bassMeasure.reduce((acc, val) => {

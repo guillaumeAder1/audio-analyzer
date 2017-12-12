@@ -2,3 +2,8 @@ body {
     margin: 0;
     /* background-color: red; */
 }
+
+canvas,
+svg {
+    position: absolute;
+}

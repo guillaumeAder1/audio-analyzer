@@ -26,7 +26,7 @@ export default class AnimationModel {
         this.node.selectAll('circle').attr('r', 50).transition()
             .attr('r', 100)
     }
-    eventReceived() {
+    eventReceived(e) {
         console.log('Received Anim 1...')
         this.animate();
         this._alert("anim 1")

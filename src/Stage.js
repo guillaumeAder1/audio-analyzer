@@ -35,8 +35,9 @@ export default class _Stage {
                 w: width,
                 h: 200
             }
-        })
-        return svg.append('g').selectAll('rect').data(_d).enter().append('rect')
+        });
+        // create and place spectr for debug
+        return svg.append('g').attr('transform', 'translate( 150,150 )').selectAll('rect').data(_d).enter().append('rect')
             .attr('x', (d, i) => d.x)
             .attr('y', (d, i) => d.y)
             .attr('height', (d, i) => d.h)
@@ -84,20 +85,11 @@ export default class _Stage {
     }
 
     frequencies(data) {
-        console.log(data, this.spectumSvg)
-        let d = data.map((e) => {
-            //console.log(e)
-            return { h: e }
-        })
-
-        // this.spectumSvg.selectAll('rect').data(d).enter().attr('height', (d, i) => d)
         this.spectumSvg.transition().duration(10)
-            .attr('height', (d, i) => data[i])
-
-
+            .attr('height', (d, i) => data[i]);
     }
 
-    eventReceived() {
-        this.animList[this.indexAnim].eventReceived();
+    eventReceived(freq) {
+        this.animList[this.indexAnim].eventReceived(freq);
     }
 }
