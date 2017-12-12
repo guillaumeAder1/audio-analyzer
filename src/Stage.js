@@ -86,7 +86,8 @@ export default class _Stage {
 
     frequencies(data) {
         this.spectumSvg.transition().duration(10)
-            .attr('height', (d, i) => data[i]);
+            .attr('height', (d, i) => data[i])
+            .style('opacity', 0);
     }
 
     eventReceived(freq) {

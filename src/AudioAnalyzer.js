@@ -126,6 +126,8 @@ export default class _AudioAnalyzer {
     }
 
     getBassFreq(basses) {
+        // to be remove = works nice with anim 3
+        return this.emitBass(basses);
 
         let global = basses.reduce((acc, val) => {
             return acc + val;
